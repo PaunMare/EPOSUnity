@@ -1,8 +1,13 @@
 ﻿using System;
+using UnityEngine;
 
-[Serializable]
-public class Item
+public class Item : MonoBehaviour
 {
     public string Name;
     public string Price;
+
+    public void AddItem()
+    {
+        Order.Instance.items.Add(this);
+    }
 }
