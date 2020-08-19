@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
 public class Order : MonoBehaviour
 {
     public static Order Instance;
@@ -10,10 +10,10 @@ public class Order : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(Instance);
     }
 
-
+    
     public string GenerateEmail()
     {
         return null;

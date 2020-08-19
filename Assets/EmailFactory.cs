@@ -4,20 +4,31 @@ using System.Net;
 using System.Net.Mail;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using UnityEngine.SceneManagement;
+using System;
 
 public class EmailFactory : MonoBehaviour
 {
-    public InputField recipientEmail;
-    
+    string recipientEmail;
+    public Text text;
+    //public Text dummy;
+    string mail;
     public static EmailFactory Instance;
     private string senderMail = "eposprojekatunity@gmail.com";
 
     private void Awake()
     {
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        recipientEmail= GameObject.FindGameObjectWithTag("mail").GetComponent<Text>().text;
+        //DontDestroyOnLoad(this.gameObject);
     }
-
+    public void AddMail()
+    {
+        //dummy.text = recipientEmail.text;
+        //DontDestroyOnLoad(this.gameObject);
+        //Console.WriteLine(dummy.text);
+        SceneManager.LoadScene(1);
+    }
     public void SendEmail()
     {
         MailMessage mail = new MailMessage();
@@ -28,10 +39,10 @@ public class EmailFactory : MonoBehaviour
         SmtpServer.Port = 587;
 
         mail.From = new MailAddress(senderMail);
-        mail.To.Add(new MailAddress(recipientEmail.text));
+        mail.To.Add(new MailAddress(recipientEmail));
         
-        mail.Subject = "Test Email through C Sharp App";
-        mail.Body = "<h2>test mail</h2>";
+        mail.Subject = "Restoran \"Jadran\" narudžbina";
+        mail.Body = text.text+"\n Hvala što naručujete kod nas";
         mail.IsBodyHtml = true;
         
 
@@ -47,9 +58,6 @@ public class EmailFactory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            SendEmail();
-        }
+
     }
 }
