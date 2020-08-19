@@ -13,7 +13,6 @@ public class Item : MonoBehaviour
     public void AddItem()
     {
        
-        //Debug.Log(Name + Price);
         int nekibroj = int.Parse(price.text);
         currentPrice = int.Parse(this.Price);
         price.text = (nekibroj+currentPrice).ToString();
