@@ -13,7 +13,7 @@ public class ListItem : MonoBehaviour
     {
         //OrderList.Instance.list.Add(this);
         
-        listholder.GetComponent<Text>().text += Name+" " + Price + "rsd";
+        listholder.GetComponent<Text>().text += Name+" " + Price + " RSD";
         listholder.GetComponent<Text>().text += "\n";
 
     }

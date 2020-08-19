@@ -11,7 +11,6 @@ public class EmailFactory : MonoBehaviour
 {
     string recipientEmail;
     public Text text;
-    //public Text dummy;
     string mail;
     public static EmailFactory Instance;
     private string senderMail = "eposprojekatunity@gmail.com";
@@ -24,9 +23,6 @@ public class EmailFactory : MonoBehaviour
     }
     public void AddMail()
     {
-        //dummy.text = recipientEmail.text;
-        //DontDestroyOnLoad(this.gameObject);
-        //Console.WriteLine(dummy.text);
         SceneManager.LoadScene(1);
     }
     public void SendEmail()
@@ -42,7 +38,19 @@ public class EmailFactory : MonoBehaviour
         mail.To.Add(new MailAddress(recipientEmail));
         
         mail.Subject = "Restoran \"Jadran\" narudžbina";
-        mail.Body = text.text+"\n Hvala što naručujete kod nas";
+
+        var orderItems = text.text.Split('\n');
+        string items = "";
+
+        for (int i = 0; i < orderItems.Length-2; i++)
+        {
+            orderItems[i] = "<li>" + orderItems[i] + "</li>";
+            items += orderItems[i];
+        }
+        
+        
+        mail.Body = "<ul>" + items+ "</ul>" +  orderItems[orderItems.Length-2] + "<br>"+   orderItems[orderItems.Length-1] + " <hr>" +
+                    "<div>Hvala što naručujete kod nas</div>"+"<div><img src=\"https://i.ibb.co/MpMVrGQ/Vizit-Karta.jpg\"></div>";
         mail.IsBodyHtml = true;
         
 
@@ -56,8 +64,4 @@ public class EmailFactory : MonoBehaviour
         SmtpServer.Send(mail);
     }
 
-    private void Update()
-    {
-
-    }
 }
